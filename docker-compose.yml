@@ -1,0 +1,57 @@
+version: '3'
+services:
+  #PHP Service
+  php-app:
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: php-app
+      SERVICE_TAGS: dev
+    working_dir: /var/www/html/php
+    volumes:
+      - ./backend/:/var/www/html/php
+      - ./docker/php-fpm/local.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - php-app-network
+    depends_on: 
+      - mysql
+
+  webserver:
+    image: nginx:alpine
+    restart: unless-stopped
+    working_dir: /var/www/html/php
+    ports:
+      - "9000:80"
+    volumes:
+      - ./backend/:/var/www/html/php
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - php-app-network
+    depends_on: 
+      - php-app
+
+  #MySQL Service
+  mysql:
+    image: mysql:latest
+    restart: unless-stopped
+    hostname: dbdata
+    ports:
+      - "5306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+    env_file:
+      - ./docker/env/.env_mysql
+    networks:
+      - php-app-network
+#Docker Networks
+networks:
+  php-app-network:
+    driver: bridge
+#Volumes
+volumes:
+  dbdata:
+    driver: local
