@@ -1,5 +1,7 @@
 #DOCKER 
  -docker-compose up
- #Information
+
+#Information
  - php 8.2
- - 
+ - Laravel 10.x
+
