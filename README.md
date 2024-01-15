@@ -1,5 +1,5 @@
-#DOCKER 
- -docker-compose up
+#DOCKER
+ - docker-compose up
 
 #Information
  - php 8.2
