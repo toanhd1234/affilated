@@ -19,6 +19,23 @@ services:
     depends_on: 
       - mysql
 
+  # vue3
+  vue-app:
+    build:
+      context: ./
+      dockerfile: ./docker/Vue.Dockerfile
+    restart: unless-stopped
+    tty: true
+    working_dir: /var/www/html/vue
+    volumes:
+      - ./frontend/:/var/www/html/vue
+    ports:
+      - "7000:8080"
+    command: npm run serve
+    networks:
+      - vue-network
+
+  # Webserver 
   webserver:
     image: nginx:alpine
     restart: unless-stopped
@@ -50,6 +67,8 @@ services:
 #Docker Networks
 networks:
   php-app-network:
+    driver: bridge
+  vue-network:
     driver: bridge
 #Volumes
 volumes:
