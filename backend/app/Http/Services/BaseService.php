@@ -12,21 +12,21 @@ abstract class BaseService
     protected $model;
     protected $models = [];
 
-    public function setRequest(BaseRequest $request): self
+    public function setRequest(array $request): self
     {
         $this->request = $request;
 
         return $this;
     }
 
-    public function setModel(Model $model): self
+    public function setModel(string $model): self
     {
-        $this->model = $model;
+        $this->model = app($model);
 
         return $this;
     }
 
-    public function setMultipleModel(Model ...$models): self
+    public function setMultipleModel(string ...$models): self
     {
         $this->models = $models;
 
