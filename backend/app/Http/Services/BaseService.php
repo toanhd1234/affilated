@@ -28,7 +28,7 @@ abstract class BaseService
 
     public function setMultipleModel(string ...$models): self
     {
-        $this->models = $models;
+        $this->models = app($models);
 
         return $this;
     }

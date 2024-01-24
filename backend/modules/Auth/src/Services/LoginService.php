@@ -25,12 +25,20 @@ class LoginService extends BaseService
      */
     public function handle(): JsonResponse
     {
-        if ($token = JWTAuth::attempt($this->request, true)) {
+        if ($token = Auth::guard('api')->attempt($this->request, true)) {
+
+            $dataRefreshToken = [
+                'random' => rand() . time(),
+                'expired_at' => time() . config('jwt.refresh_ttl')
+            ];
+
+            $refreshToken = JWTAuth::getJWTProvider()->encode($dataRefreshToken);
+
             return $this->responseSuccess([
                 'access_token' => $token,
+                'refresh_token' => $refreshToken,
                 'token_type' => 'bearer',
-                'expires_in' => auth()->factory()->getTTL() * 60,
-                'data' => Auth::user(),
+                'expires_in' => Auth::guard('api')->factory()->getTTL() * 60,
             ]);
         }
 

@@ -11,13 +11,15 @@ use Illuminate\Http\JsonResponse;
  * @property array $models
  * @property array $request
  */
-class GetProfileService extends BaseService
+class UpdateProfileService extends BaseService
 {
     /**
      * Main function of service
      */
     public function handle(): JsonResponse
     {
+        dd($this->request);
+
         return $this->responseSuccess([
             'data' => Auth::guard('api')->user(),
         ]);

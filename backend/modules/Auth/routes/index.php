@@ -16,4 +16,5 @@ use Modules\Auth\src\Http\Controllers\AuthController;
 
 Route::prefix('api/auth')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
+    Route::post('refresh-token', [AuthController::class, 'refreshToken']);
 });
