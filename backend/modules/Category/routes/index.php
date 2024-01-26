@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Profile\src\Http\Controllers\ProfileController;
+use Modules\Category\src\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,9 @@ use Modules\Profile\src\Http\Controllers\ProfileController;
 |
 */
 
-Route::prefix('api/v1/profiles')->middleware(['jwt.auth'])->group(function () {
-    Route::get('/', [ProfileController::class, 'getProfile']);
+Route::prefix('api/v1/categories')->middleware(['jwt.auth'])->group(function () {
+    Route::get('/', [CategoryController::class, 'index']);
+    Route::post('/', [CategoryController::class, 'store']);
+    Route::get('/{id}', [CategoryController::class, 'show']);
+    Route::put('/{id}', [CategoryController::class, 'update']);
 });
