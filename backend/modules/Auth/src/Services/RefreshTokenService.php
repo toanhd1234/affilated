@@ -7,8 +7,6 @@ use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 /**
- * @property \Illuminate\Database\Eloquent\Model $model
- * @property array $models
  * @property array $request
  */
 class RefreshTokenService extends BaseService

@@ -3,21 +3,19 @@
 namespace Modules\Category\src\Services;
 
 use App\Http\Services\BaseService;
-use Auth;
 use Illuminate\Http\JsonResponse;
-use Modules\Category\Models\Category;
+use Modules\Category\src\Repositories\CategoryRepositoryInterface;
 
 /**
- * @property \Illuminate\Database\Eloquent\Model $model
- * @property array $models
  * @property array $request
  */
 class GetCategoriesService extends BaseService
 {
+    protected $categoryRepository;
 
-    public function __construct()
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
-        $this->setModel(Category::class);
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -25,12 +23,14 @@ class GetCategoriesService extends BaseService
      */
     public function handle(): JsonResponse
     {
-        $result = $this->model
-            ->select(['id', 'name', 'updated_at'])
-            ->when(isset($this->request['keyword']), function ($query) {
-                $query->where('name', 'LIKE', '%' . $this->request['keyword'] . '%');
+        $result = $this->categoryRepository
+            ->scopeQuery(function ($query) {
+                $query->select(['id', 'name', 'updated_at'])
+                    ->when(isset($this->request['keyword']), function ($query) {
+                        $query->where('name', 'LIKE', '%' . $this->request['keyword'] . '%');
+                    })
+                    ->orderBy('id', parent::ORDER_BY_DESC);
             })
-            ->orderBy('id', parent::ORDER_BY_DESC)
             ->get();
 
         return $this->responseSuccess([

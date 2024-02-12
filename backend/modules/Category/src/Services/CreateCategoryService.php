@@ -3,22 +3,17 @@
 namespace Modules\Category\src\Services;
 
 use App\Http\Services\BaseService;
-use Auth;
 use Illuminate\Http\JsonResponse;
-use Modules\Category\Models\Category;
-use Modules\Category\src\Repositories\CategoryRepository;
+use Modules\Category\src\Repositories\CategoryRepositoryInterface;
 
 /**
- * @property \Illuminate\Database\Eloquent\Model $model
- * @property array $models
  * @property array $request
  */
 class CreateCategoryService extends BaseService
 {
-
     protected $categoryRepository;
 
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }

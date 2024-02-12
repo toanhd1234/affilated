@@ -8,7 +8,7 @@ use Modules\Category\Models\Category;
 /**
  * @property \Illuminate\Database\Eloquent\Model $model
  */
-class CategoryRepository extends BaseRepository
+class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
     public function getModel(): string
     {

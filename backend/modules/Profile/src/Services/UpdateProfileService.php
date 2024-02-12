@@ -7,8 +7,6 @@ use Auth;
 use Illuminate\Http\JsonResponse;
 
 /**
- * @property \Illuminate\Database\Eloquent\Model $model
- * @property array $models
  * @property array $request
  */
 class UpdateProfileService extends BaseService
@@ -18,8 +16,11 @@ class UpdateProfileService extends BaseService
      */
     public function handle(): JsonResponse
     {
+        $result = Auth::guard('api')->user();
+        //update
+
         return $this->responseSuccess([
-            'data' => Auth::guard('api')->user(),
+            'data' => $result
         ]);
     }
 

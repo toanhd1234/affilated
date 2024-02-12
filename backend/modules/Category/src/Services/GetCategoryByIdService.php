@@ -5,11 +5,9 @@ namespace Modules\Category\src\Services;
 use App\Http\Interfaces\EditInterface;
 use App\Http\Services\BaseService;
 use Illuminate\Http\JsonResponse;
-use Modules\Category\src\Repositories\CategoryRepository;
+use Modules\Category\src\Repositories\CategoryRepositoryInterface;
 
 /**
- * @property \Illuminate\Database\Eloquent\Model $model
- * @property array $models
  * @property array $request
  */
 class GetCategoryByIdService extends BaseService implements EditInterface
@@ -17,7 +15,7 @@ class GetCategoryByIdService extends BaseService implements EditInterface
     protected $category;
     protected $categoryRepository;
 
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }

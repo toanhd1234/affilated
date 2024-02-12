@@ -15,7 +15,7 @@ interface BaseRepositoryInterface
 
     public function firstOrFailWhere(array $where, array $columns = ['*']): Model|null;
 
-    public function all(array $columns = ['*']): Collection;
+    public function get(array $columns = ['*']): Collection;
 
     public function paginate(int $limit = null, array $columns = ['*']): LengthAwarePaginator;
 

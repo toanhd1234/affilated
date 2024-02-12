@@ -56,7 +56,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this->model->firstOrFail($where, $columns);
     }
 
-    public function all(array $columns = ['*']): Collection
+    public function get(array $columns = ['*']): Collection
     {
         return $this->model->get($columns);
 

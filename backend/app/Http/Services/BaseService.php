@@ -2,8 +2,6 @@
 
 namespace App\Http\Services;
 
-use App\Http\Requests\BaseRequest;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\JsonResponse;
 
 abstract class BaseService
@@ -18,20 +16,6 @@ abstract class BaseService
     public function setRequest(array $request): self
     {
         $this->request = $request;
-
-        return $this;
-    }
-
-    public function setModel(string $model): self
-    {
-        $this->model = app($model);
-
-        return $this;
-    }
-
-    public function setMultipleModel(string ...$models): self
-    {
-        $this->models = app($models);
 
         return $this;
     }

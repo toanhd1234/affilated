@@ -5,21 +5,13 @@ namespace Modules\Auth\src\Services;
 use App\Http\Services\BaseService;
 use Auth;
 use Illuminate\Http\JsonResponse;
-use Modules\Auth\Models\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 /**
- * @property \Illuminate\Database\Eloquent\Model $model
- * @property array $models
  * @property array $request
  */
 class LoginService extends BaseService
 {
-    public function __construct()
-    {
-        $this->setModel(User::class);
-    }
-
     /**
      * Main function of service
      */

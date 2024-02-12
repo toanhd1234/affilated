@@ -7,8 +7,6 @@ use Auth;
 use Illuminate\Http\JsonResponse;
 
 /**
- * @property \Illuminate\Database\Eloquent\Model $model
- * @property array $models
  * @property array $request
  */
 class GetProfileService extends BaseService
