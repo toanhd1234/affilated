@@ -5,7 +5,7 @@ namespace Modules\Category\src\Services;
 use App\Http\Interfaces\EditInterface;
 use App\Http\Services\BaseService;
 use Illuminate\Http\JsonResponse;
-use Modules\Category\Models\Category;
+use Modules\Category\src\Repositories\CategoryRepository;
 
 /**
  * @property \Illuminate\Database\Eloquent\Model $model
@@ -15,10 +15,11 @@ use Modules\Category\Models\Category;
 class GetCategoryByIdService extends BaseService implements EditInterface
 {
     protected $category;
+    protected $categoryRepository;
 
-    public function __construct()
+    public function __construct(CategoryRepository $categoryRepository)
     {
-        $this->setModel(Category::class);
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -37,7 +38,7 @@ class GetCategoryByIdService extends BaseService implements EditInterface
 
     public function setDataById(int $id): self
     {
-        $this->category = $this->model->where('id', $id)->first();
+        $this->category = $this->categoryRepository->firstWhere(['id' => $id]);
 
         return $this;
     }

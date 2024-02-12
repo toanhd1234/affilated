@@ -6,6 +6,7 @@ use App\Http\Services\BaseService;
 use Auth;
 use Illuminate\Http\JsonResponse;
 use Modules\Category\Models\Category;
+use Modules\Category\src\Repositories\CategoryRepository;
 
 /**
  * @property \Illuminate\Database\Eloquent\Model $model
@@ -15,9 +16,11 @@ use Modules\Category\Models\Category;
 class CreateCategoryService extends BaseService
 {
 
-    public function __construct()
+    protected $categoryRepository;
+
+    public function __construct(CategoryRepository $categoryRepository)
     {
-        $this->setModel(Category::class);
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -25,7 +28,7 @@ class CreateCategoryService extends BaseService
      */
     public function handle(): JsonResponse
     {
-        $result = $this->model->create($this->request);
+        $result = $this->categoryRepository->create($this->request);
 
         return $this->responseSuccess([
             'data' => $result,

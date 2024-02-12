@@ -1,10 +1,12 @@
 FROM php:8.2-fpm
 
 RUN apt-get update \
-    && apt-get -y --no-install-recommends install sudo php8.2-mysql php8.2-gd php8.2-imagick php8.2-xml php-redis mysql-client \
+    && apt-get -y --no-install-recommends install sudo php8.2-mysql php8.2-gd php-zip php8.2-imagick php8.2-xml php-redis mysql-client \
     && apt-get clean; rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
 
 RUN docker-php-ext-install pdo pdo_mysql
+RUN apt-get update && \
+    apt-get install -y zip unzip
 
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 

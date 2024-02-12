@@ -28,7 +28,7 @@ services:
       - "9000:80"
     volumes:
       - ./backend/:/var/www/html/php
-      - ./docker/nginx/php/conf.d/:/etc/nginx/conf.d/
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
       - ./docker/log/php:/var/log/nginx/
     networks:
       - php-app-network
@@ -50,22 +50,6 @@ services:
     command: npm run serve
     networks:
       - vue-network
-
-  # Webvueserver 
-  webvueserver:
-    image: nginx:alpine
-    restart: unless-stopped
-    working_dir: /var/www/html/vue
-    ports:
-      - "7000:8080"
-    volumes:
-      - ./frontend/:/var/www/html/vue
-      - ./docker/nginx/vue/conf.d/:/etc/nginx/conf.d/
-      - ./docker/log/vue:/var/log/nginx/
-    networks:
-      - vue-network
-    depends_on: 
-      - vue-app
 
   #MySQL Service
   mysql:
